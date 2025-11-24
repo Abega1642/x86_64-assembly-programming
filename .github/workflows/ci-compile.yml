@@ -4,14 +4,12 @@ on:
   push:
     branches:
       - "**"
-    paths:
-      - "src/**/*.asm"
 
   pull_request:
     branches:
       - "**"
-    paths:
-      - "src/**/*.asm"
+      
+  workflow_dispatch:
 
 jobs:
   build-and-test:
