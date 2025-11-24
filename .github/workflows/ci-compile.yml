@@ -1,0 +1,54 @@
+name: CI - Compilation
+
+on:
+  push:
+    paths:
+      - "src/**/*.asm"
+  pull_request:
+    paths:
+      - "src/**/*.asm"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install NASM
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y nasm
+
+      - name: Find, compile, link, and run all assembly files
+        run: |
+          set -e
+
+          mkdir -p build
+
+          for file in src/*.asm; do
+            [ -e "$file" ] || continue
+
+            base=$(basename "$file" .asm)
+
+            echo "Compiling $file"
+            nasm -f elf64 "$file" -o "build/$base.o"
+
+            echo "Linking $base.o"
+            ld "build/$base.o" -o "build/$base"
+
+            echo "Running $base"
+            "./build/$base" || {
+              echo "Program $base failed at runtime"
+              exit 1
+            }
+
+            echo "$base ran successfully"
+          done
+
+      - name: Summary
+        run: echo "All assembly programs compiled, linked, and executed successfully."
