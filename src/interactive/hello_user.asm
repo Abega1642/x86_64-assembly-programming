@@ -1,13 +1,12 @@
-
-section .data
-		question db "Hello, what is your name? > "
-		answer db "Welcome to this assembly programming "
+section  .data
+question db "Hello, what is your name? > "
+answer   db "Welcome to this assembly programming "
 
 section .bss
-		input resb 0x1e
+input   resb 0x1e
 
 section .text
-		global _start
+global  _start
 
 _start:
 
@@ -16,10 +15,9 @@ _start:
 	call _display_answer_text
 	call _display_user_input
 
-	mov rax, 0x3c,
+	mov rax, 0x3c
 	mov rdi, 0
 	syscall
-
 
 _display_question:
 	mov rax, 0x01
@@ -44,7 +42,7 @@ _display_answer_text:
 	mov rdx, 0x25
 	syscall
 	ret
-	
+
 _display_user_input:
 	mov rax, 0x01
 	mov rdi, 0x01

@@ -1,9 +1,9 @@
-
 section .data
-		text db "Hello, world! New to Assembly programming!", 0x0a
 
-section .text
-		global _start
+text db "Hello, world! New to Assembly programming!", 0x0a
+
+	section .text
+	global  _start
 
 _start:
 	mov rax, 0x01

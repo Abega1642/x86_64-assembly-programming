@@ -1,9 +1,9 @@
-
 section .data
-		text db "Modular hello world!", 0x0a
 
-section .text
-		global _start
+text db "Modular hello world!", 0x0a
+
+	section .text
+	global  _start
 
 _start:
 

@@ -1,13 +1,12 @@
-
 section .data
-	greeting_message db "Hello low level programming fan!", 0x0a, 0x00
-	goodbey_message db "See you next time low level programming fan!", 0x0a, 0x00
+greeting_message db "Hello low level programming fan!", 0x0a, 0x00
+goodbey_message db "See you next time low level programming fan!", 0x0a, 0x00
 
 section .text
-	global _start
+global  _start
 
 _start:
-	mov rax, greeting_message
+	mov  rax, greeting_message
 	call _printf
 
 	mov  rax, goodbey_message
@@ -17,15 +16,13 @@ _start:
 	mov rdi, 0x00
 	syscall
 
-
-
 _printf:
 	push rax
-	mov rbx, 0x00
+	mov  rbx, 0x00
 
 _printlp:
-	inc rax,
-	inc rbx,
+	inc rax
+	inc rbx
 	mov cl, [rax]
 	cmp cl, 0x00
 	jne _printlp
