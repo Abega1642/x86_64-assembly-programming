@@ -2,9 +2,14 @@ name: CI - Compilation
 
 on:
   push:
+    branches:
+      - "**"
     paths:
       - "src/**/*.asm"
+
   pull_request:
+    branches:
+      - "**"
     paths:
       - "src/**/*.asm"
 
@@ -30,9 +35,7 @@ jobs:
 
           mkdir -p build
 
-          for file in src/*.asm; do
-            [ -e "$file" ] || continue
-
+          for file in $(find src -type f -name "*.asm"); do
             base=$(basename "$file" .asm)
 
             echo "Compiling $file"
